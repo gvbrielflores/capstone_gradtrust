@@ -1,6 +1,10 @@
 # capstone_gradtrust
 repository for segun-bake's capstone project: "Gradtrust"
 
+## Python and Pip version
+`python=3.12.0`
+`pip=25.0.1`
+
 ## Automatic Debugging
 create a .env file in the root directory with this line for automatic debugging:
 

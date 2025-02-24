@@ -1,23 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract DiplomaVerification {
-    struct Diploma {
-        bytes32 diplomaHash;
+contract CredentialVerification {
+    struct Credential {
+        bytes32 signedCredentialaHash;
+        address holder;
         address issuer;
+        uint256 issuedAt;
     }
 
-    mapping(bytes32 => Diploma) public diplomas;
+    mapping(bytes32 => Credential) public credentials;
 
-    event DiplomaStored(bytes32 indexed diplomaHash, address indexed issuer);
+    event CredentialStored(bytes32 indexed signedCredentialHash, address indexed issuer, address indexed holder, 
+    uint256 issuedAt);
 
-    function storeDiplomaHash(bytes32 _diplomaHash) public {
-        require(diplomas[_diplomaHash].issuer == address(0), "Diploma already exists");
-        diplomas[_diplomaHash] = Diploma(_diplomaHash, msg.sender);
-        emit DiplomaStored(_diplomaHash, msg.sender);
+    function storeSignedCredentialHash(bytes32 _signedCredentialHash, address _holder, uint256 _issuedAt) public {
+        require(credentials[_signedCredentialHash].issuer == address(0), "Diploma already exists");
+        credentials[_signedCredentialHash] = Credential(_signedCredentialHash, msg.sender, _holder, _issuedAt);
+        emit CredentialStored(_signedCredentialHash, msg.sender, _holder, _issuedAt);
     }
 
-    function verifyDiploma(bytes32 _diplomaHash) public view returns (bool) {
-        return diplomas[_diplomaHash].issuer != address(0);
+    function verifyCredential(bytes32 _diplomaHash) public view returns (bool) {
+        return credentials[_diplomaHash].issuer != address(0);
     }
 }

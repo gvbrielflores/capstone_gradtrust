@@ -1,6 +1,9 @@
 node_modules
 .env
 
+# pyenv tracking the python version for this directory - Gabe
+.python-version
+
 # Hardhat files
 /cache
 /artifacts

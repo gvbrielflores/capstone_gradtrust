@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const Contract = await hre.ethers.getContractFactory("DiplomaVerification");
+  const Contract = await hre.ethers.getContractFactory("CredentialVerification");
   const contract = await Contract.deploy();
 
   await contract.waitForDeployment();

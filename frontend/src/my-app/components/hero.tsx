@@ -6,13 +6,11 @@ export default function Hero() {
     <section className="container flex min-h-[calc(100vh-4rem)] max-w-screen-2xl flex-col items-center justify-center space-y-8 py-24 text-center md:py-32">
       <div className="space-y-6">
         <h1 className="bg-gradient-to-br from-white from-30% via-white/90 to-white/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
-          Innovate Faster with
-          <br />
-          Amane Soft
+          GradTrust
         </h1>
         <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-          Empowering businesses with cutting-edge software solutions. From AI-driven analytics to seamless cloud
-          integrations, we're shaping the future of technology.
+        A secure, quick system that securely verifies credentials is needed to authenticate academic 
+        credentials and prevent diploma fraud.
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 mt-6">

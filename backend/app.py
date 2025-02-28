@@ -10,3 +10,4 @@ def start():
 # Register api routes root '/api'
 app.register_blueprint(api)
 
+# initial post

@@ -3,17 +3,19 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground p-4">
-      <nav className="flex justify-between items-center mb-8">
-        <div className="text-xl font-bold">Amane Soft</div>
-        <div className="space-x-4">
-          <Link href="#" className="hover:text-primary">Solutions</Link>
-          <Link href="#" className="hover:text-primary">Industries</Link>
-          <Link href="#" className="hover:text-primary">About Us</Link>
-          <Link href="#" className="hover:text-primary">GitHub</Link>
-          <Link href="#" className="hover:text-primary">Contact</Link>
-          <Link href="#" className="bg-primary text-white px-4 py-2 rounded">Get a Demo</Link>
-        </div>
-      </nav>
+      <header className="mb-8">
+        <nav className="flex justify-between items-center">
+          <div className="text-xl font-bold">Amane Soft</div>
+          <div className="space-x-4">
+            <Link href="#" className="hover:text-primary">Solutions</Link>
+            <Link href="#" className="hover:text-primary">Industries</Link>
+            <Link href="#" className="hover:text-primary">About Us</Link>
+            <Link href="#" className="hover:text-primary">GitHub</Link>
+            <Link href="#" className="hover:text-primary">Contact</Link>
+            <Link href="#" className="bg-primary text-white px-4 py-2 rounded">Get a Demo</Link>
+          </div>
+        </nav>
+      </header>
 
       <section className="mb-12">
         <h1 className="text-4xl font-bold mb-4">Innovate Faster with Amane Soft</h1>

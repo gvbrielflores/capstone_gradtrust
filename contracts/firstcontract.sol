@@ -2,32 +2,105 @@
 pragma solidity ^0.8.20;
 
 contract CredentialVerification {
+    bytes32 public merkleRoot; // On-chain Merkle root for verified issuers
+
     struct Credential {
-        bytes32 signedCredentialaHash;
-        address holder;
+        bytes32 credentialHash;
         address issuer;
-        string dataString;
+        address holder;
         uint256 issuedAt;
+        string data;
     }
 
-    // Storage mappings
+    // Storage mapping for credentials
     mapping(bytes32 => Credential) private credentials;
-    mapping(address => bool) public verifiedIssuers;
-    mapping(address => bytes32[]) private holderCredentials;
 
     // Events
-    event CredentialStored(bytes32 indexed signedCredentialHash, address indexed issuer, address indexed holder, 
-    uint256 issuedAt, string data);
-    event IssuerRegistered(address indexed issuer);
-    event IssuerRevoked(address indexed issuer);
+    event CredentialStored(
+        bytes32 indexed credentialHash,
+        address indexed issuer,
+        address indexed holder,
+        uint256 issuedAt,
+        string data
+    );
+    event MerkleRootUpdated(bytes32 newMerkleRoot);
 
-    function storeSignedCredentialHash(bytes32 _signedCredentialHash, address _holder, uint256 _issuedAt, string memory _dataString) public {
-        require(credentials[_signedCredentialHash].issuer == address(0), "Credential already exists");
-        credentials[_signedCredentialHash] = Credential(_signedCredentialHash, msg.sender, _holder, _dataString, _issuedAt);
-        emit CredentialStored(_signedCredentialHash, msg.sender, _holder, _issuedAt, _dataString);
+    // Modifier to check if an issuer is valid (only verifies Merkle proof)
+    modifier onlyVerifiedIssuer(
+        bytes32[] memory proof,
+        bytes32 signedPairHash
+    ) {
+        require(
+            verifyIssuer(proof, signedPairHash),
+            "Invalid issuer: Merkle proof failed"
+        );
+        _;
     }
 
-    function verifyCredential(bytes32 _diplomaHash) public view returns (bool) {
-        return credentials[_diplomaHash].issuer != address(0);
+    // Function to store a new credential (Issuer must be verified via Merkle proof)
+    function storeCredential(
+        bytes32 _credentialHash,
+        address _holder,
+        uint256 _issuedAt,
+        string calldata _data,
+        bytes32[] calldata _merkleProof,
+        bytes32 signedPairHash
+    ) external onlyVerifiedIssuer(_merkleProof, signedPairHash) {
+        require(
+            credentials[_credentialHash].issuer == address(0),
+            "Credential already exists"
+        );
+
+        credentials[_credentialHash] = Credential(
+            _credentialHash,
+            msg.sender,
+            _holder,
+            _issuedAt,
+            _data
+        );
+        emit CredentialStored(
+            _credentialHash,
+            msg.sender,
+            _holder,
+            _issuedAt,
+            _data
+        );
+    }
+
+    // Function to verify if an address is a registered issuer using a Merkle proof
+    function verifyIssuer(
+        bytes32[] memory proof,
+        bytes32 signedPairHash
+    ) public view returns (bool) {
+        bytes32 computedHash = signedPairHash;
+
+        // Process the Merkle proof
+        for (uint256 i = 0; i < proof.length; i++) {
+            bytes32 proofElement = proof[i];
+            if (computedHash < proofElement) {
+                computedHash = keccak256(
+                    abi.encodePacked(computedHash, proofElement)
+                );
+            } else {
+                computedHash = keccak256(
+                    abi.encodePacked(proofElement, computedHash)
+                );
+            }
+        }
+
+        return computedHash == merkleRoot; // Compare with the stored Merkle root
+    }
+
+    // Function to update the Merkle root (only callable by admin - assumed to be the contract owner)
+    function updateMerkleRoot(bytes32 _newMerkleRoot) external {
+        merkleRoot = _newMerkleRoot;
+        emit MerkleRootUpdated(_newMerkleRoot);
+    }
+
+    // Function to check if a credential exists
+    function verifyCredential(
+        bytes32 _credentialHash
+    ) public view returns (bool) {
+        return credentials[_credentialHash].issuer != address(0);
     }
 }

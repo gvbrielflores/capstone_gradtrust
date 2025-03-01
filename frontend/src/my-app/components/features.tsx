@@ -2,9 +2,9 @@ import { Brain, Cloud, Shield, Zap } from "lucide-react"
 
 const features = [
   {
-    name: "AI-Powered Analytics",
-    description: "Harness the power of machine learning to derive actionable insights from your data.",
-    icon: Brain,
+    name: "Quick and Reliable Solution",
+    description: "We provide a quick and reliable solutions for verifying credentials using blockchain technology.",
+    icon: Brain, 
   },
   {
     name: "Cloud-Native Architecture",

@@ -24,6 +24,7 @@ contract CredentialVerification {
         string data
     );
     event MerkleRootUpdated(bytes32 newMerkleRoot);
+    event CredentialDeleted(bytes32 indexed credentialHash);
 
     // Modifier to check if an issuer is valid (only verifies Merkle proof)
     modifier onlyVerifiedIssuer(
@@ -92,7 +93,8 @@ contract CredentialVerification {
     }
 
     // Function to update the Merkle root (only callable by admin - assumed to be the contract owner)
-    function updateMerkleRoot(bytes32 _newMerkleRoot) external {
+    //changed this to internal so deleteCredential can call it
+    function updateMerkleRoot(bytes32 _newMerkleRoot) internal {
         merkleRoot = _newMerkleRoot;
         emit MerkleRootUpdated(_newMerkleRoot);
     }
@@ -102,5 +104,19 @@ contract CredentialVerification {
         bytes32 _credentialHash
     ) public view returns (bool) {
         return credentials[_credentialHash].issuer != address(0);
+    }
+
+    // function to delete a credential
+    function deleteCredential(bytes32 _credentialHash, bytes32 _newMerkleRoot) external {
+        // Check if the credential exists
+        require(credentials[_credentialHash].issuer != address(0), "Credential does not exist");
+
+        // delete the credential
+        delete credentials[_credentialHash];
+        // let external world know that the credential has been deleted
+        emit CredentialDeleted(_credentialHash);
+
+        // update the merkle root
+        updateMerkleRoot(_newMerkleRoot);
     }
 }

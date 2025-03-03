@@ -46,5 +46,14 @@ def update_issuers():
     cursor.close()
     connection.close()
 
+    def delete_issuer(address):
+        connection = psycopg2.connect(CONNECTION_STRING)
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM issuers WHERE address = %s", (address,))
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+
 if __name__ == '__main__':
     update_issuers()

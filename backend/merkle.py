@@ -68,6 +68,10 @@ def generate_merkle_tree(issuers):
     # return the root hash of the Merkle tree
     return tree.rootHash
 
+def recalculate_merkle_root():
+        issuers = fetch_issuers_from_db()
+        return generate_merkle_tree(issuers)
+
 
 if __name__ == '__main__':
     # fetch the issuers from the database

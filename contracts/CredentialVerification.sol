@@ -30,6 +30,23 @@ contract CredentialVerification {
         string data
     );
 
+    event CredentialDeleted(bytes32 indexed credentialHash);
+
+    
+    // function to delete a credential
+    function deleteCredential(bytes32 _credentialHash, bytes32 _newMerkleRoot) external {
+        // Check if the credential exists
+        require(credentials[_credentialHash].issuer != address(0), "Credential does not exist");
+
+        // delete the credential
+        delete credentials[_credentialHash];
+        // let external world know that the credential has been deleted
+        emit CredentialDeleted(_credentialHash);
+
+        // update the merkle root
+        updateMerkleRoot(_newMerkleRoot);
+    }
+
     // Modifier to check if an issuer is valid (only verifies Merkle proof)
     modifier onlyVerifiedIssuer(
         bytes32[] memory proof,

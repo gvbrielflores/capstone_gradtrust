@@ -10,7 +10,7 @@ export default function Navbar() {
           <span className="text-xl font-bold">GradTrust</span>
         </Link>
         <nav className="hidden md:flex flex-1 items-center space-x-6 text-sm font-medium">
-          <Link href="/solutions" className="transition-colors hover:text-primary">
+          <Link href="/about" className="transition-colors hover:text-primary">
             About Us
           </Link>
           <Link href="/industries" className="transition-colors hover:text-primary">

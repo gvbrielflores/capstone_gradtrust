@@ -9,8 +9,14 @@ dotenv.load_dotenv()
 
 # get the private key from said file
 PRIVATE_KEY = os.getenv('PRIVATE_KEY')
+# get the database connection string too
+CONNECTION_STRING = os.getenv('CONNECTION_STRING')
+
 if not PRIVATE_KEY:
     raise ValueError('missing PRIVATE_KEY env var')
+
+if not CONNECTION_STRING:
+    raise ValueError('missing CONNECTION_STRING env var')
 
 def sign_data(data, private_key):
     #another way to sign if you have the private key...
@@ -21,7 +27,7 @@ def sign_data(data, private_key):
 
 def update_issuers():
     # connect to database
-    connection = psycopg2.connect("postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres")
+    connection = psycopg2.connect(CONNECTION_STRING)
     cursor = connection.cursor()
 
     # get the addresses and names of all issuers who do not have a signature

@@ -2,10 +2,18 @@ import psycopg2
 from pymerkle import MerkleTree
 from ecdsa import SigningKey, SECP256k1
 from web3 import Web3
+import os
+import dotenv
+
+# load the .env file
+dotenv.load_dotenv()
+
+# get the database connection string
+CONNECTION_STRING = os.getenv('CONNECTION_STRING')
 
 def fetch_issuers_from_db():
     # connect to the database
-    connection = psycopg2.connect("postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres")
+    connection = psycopg2.connect(CONNECTION_STRING)
 
     # create a cursor object
     cursor = connection.cursor()

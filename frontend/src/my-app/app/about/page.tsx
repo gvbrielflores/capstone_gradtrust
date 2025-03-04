@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { motion } from "framer-motion"
 
 export default function AboutPage() {
   return (
@@ -19,40 +20,47 @@ export default function AboutPage() {
         <Navbar />
         <main className="flex flex-col items-center p-8 md:p-24 text-white">
           {/* Hero Section */}
-          <section className="w-full max-w-7xl mb-16">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="w-full max-w-7xl mb-16"
+          >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">About Our Company</h1>
             <p className="text-xl text-gray-200 max-w-3xl">
               We're on a mission to bring trust back into the hiring process.
             </p>
-          </section>
+          </motion.section>
 
           {/* Our Story */}
-          <section className="w-full max-w-7xl mb-20">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="w-full max-w-7xl mb-20"
+          >
             <h2 className="text-3xl font-bold mb-8 border-b border-teal-400 pb-2 inline-block">Our Story</h2>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-lg mb-4">
-                  Founded in 2025, Gradust began with a simple idea: make complex workflows simple. Our founders
-                  recognized that teams were spending too much time on process and not enough on innovation.
-                </p>
-                <p className="text-lg mb-4">
-                  What started as a small project has grown into a comprehensive platform used by thousands of teams
-                  worldwide.
+                Founded in 2025, GradTrust was built on a simple mission: restore trust in the hiring process. 
+                Our founders saw a growing need for a secure and efficient way to verify academic credentials, 
+                ensuring that employers can confidently assess candidates based on verified achievements.
                 </p>
               </div>
-              {/* <div className="relative h-80 w-full rounded-xl overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=600&width=800"
-                  alt="Our team collaborating"
-                  fill
-                  className="object-cover"
-                />
-              </div> */}
             </div>
-          </section>
+          </motion.section>
 
           {/* Contact Section */}
-          <section className="w-full max-w-7xl mb-12">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="w-full max-w-7xl mb-12"
+          >
             <h2 className="text-3xl font-bold mb-8 border-b border-teal-400 pb-2 inline-block">Get In Touch</h2>
             <div className="bg-slate-800/30 p-8 rounded-xl">
               <p className="text-lg mb-6">
@@ -74,7 +82,7 @@ export default function AboutPage() {
                 </a>
               </div>
             </div>
-          </section>
+          </motion.section>
         </main>
         <Footer />
       </div>

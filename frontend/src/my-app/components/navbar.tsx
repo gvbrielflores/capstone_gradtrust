@@ -13,11 +13,14 @@ export default function Navbar() {
           <Link href="/about" className="transition-colors hover:text-primary">
             About Us
           </Link>
-          <Link href="/industries" className="transition-colors hover:text-primary">
-            Temporary
+          <Link href="/issuer" className="transition-colors hover:text-primary">
+            Issuer
           </Link>
-          <Link href="/about" className="transition-colors hover:text-primary">
-            Really Temporary
+          <Link href="/holder" className="transition-colors hover:text-primary">
+            Holder
+          </Link>
+          <Link href="/verifier" className="transition-colors hover:text-primary">
+            Verifier
           </Link>
         </nav>
         <div className="flex items-center space-x-4">

@@ -22,7 +22,7 @@ export default function AboutPage() {
           <section className="w-full max-w-7xl mb-16">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">About Our Company</h1>
             <p className="text-xl text-gray-200 max-w-3xl">
-              We're on a mission to streamline workflows and empower teams with intuitive solutions.
+              We're on a mission to bring trust back into the hiring process.
             </p>
           </section>
 
@@ -32,7 +32,7 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-lg mb-4">
-                  Founded in 2020, Streamline began with a simple idea: make complex workflows simple. Our founders
+                  Founded in 2025, Gradust began with a simple idea: make complex workflows simple. Our founders
                   recognized that teams were spending too much time on process and not enough on innovation.
                 </p>
                 <p className="text-lg mb-4">
@@ -40,14 +40,14 @@ export default function AboutPage() {
                   worldwide.
                 </p>
               </div>
-              <div className="relative h-80 w-full rounded-xl overflow-hidden">
+              {/* <div className="relative h-80 w-full rounded-xl overflow-hidden">
                 <Image
                   src="/placeholder.svg?height=600&width=800"
                   alt="Our team collaborating"
                   fill
                   className="object-cover"
                 />
-              </div>
+              </div> */}
             </div>
           </section>
 

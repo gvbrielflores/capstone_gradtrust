@@ -47,7 +47,7 @@ export default function AboutPage() {
                 <p className="text-lg mb-4">
                 Founded in 2025, GradTrust was built on a simple mission: restore trust in the hiring process. 
                 Our founders saw a growing need for a secure and efficient way to verify academic credentials, 
-                ensuring that employers can confidently assess candidates based on verified achievements.
+                ensuring that employers can confidently assess candidates based on authenticated qualifications.
                 </p>
               </div>
             </div>

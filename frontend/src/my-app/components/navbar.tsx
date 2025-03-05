@@ -27,7 +27,9 @@ export default function Navbar() {
           <Button variant="ghost" size="sm" className="hidden md:flex">
             Contact
           </Button>
-          <Button size="sm">Get a Demo</Button>
+          <Link href="/Sign_In">
+            <Button size="sm">Sign In</Button>
+          </Link>
         </div>
       </div>
     </header>

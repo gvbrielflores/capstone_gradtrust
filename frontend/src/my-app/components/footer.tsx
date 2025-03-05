@@ -70,7 +70,7 @@ export default function Footer() {
       </div>
       <div className="container border-t border-border/20 py-6">
         <p className="text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Amane Soft, Inc. All rights reserved.
+          © {new Date().getFullYear()} GradTrust. All rights reserved.
         </p>
       </div>
     </footer>

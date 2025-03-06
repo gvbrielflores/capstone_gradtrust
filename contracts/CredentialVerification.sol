@@ -18,7 +18,12 @@ contract CredentialVerification {
     }
 
     // Storage mapping for credentials
+
+    //mapping signed hash of diploma to struct 
     mapping(bytes32 => Credential) public credentials;
+    
+    //address of credential holder to the signed hash of each credential
+    //can we make it Credential[] instead of bytes32[]?
     mapping(address => bytes32[]) public holderCredentials;
 
     // Events
@@ -48,12 +53,13 @@ contract CredentialVerification {
     // Modifier to check if an issuer is valid (only verifies Merkle proof)
     modifier onlyVerifiedIssuer(
         bytes32[] memory proof,
-        bytes32 signedPairHash
+        bytes32 signedPairHash //H(address,name) signed by issuer
     ) {
         require(issuerRegistry.verifyIssuer(proof, signedPairHash), "Invalid issuer: Merkle proof failed");
         _;
     }
 
+    //what this do?
     constructor(address _issuerRegistry) {
         issuerRegistry = IssuerRegistry(_issuerRegistry);
     }

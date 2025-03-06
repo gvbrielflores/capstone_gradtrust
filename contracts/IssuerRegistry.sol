@@ -26,6 +26,7 @@ contract IssuerRegistry {
     }
 
     // Verifies provided merkle proof using stored merkle root
+    //only one iteration of the loop is executed??
     function verifyIssuer(
         bytes32[] calldata proof, 
         bytes32 leaf

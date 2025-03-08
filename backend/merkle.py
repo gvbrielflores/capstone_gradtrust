@@ -1,5 +1,5 @@
 import psycopg2
-from pymerkle import MerkleTree
+from pymerkle import InmemoryTree as MerkleTree
 from ecdsa import SigningKey, SECP256k1
 from web3 import Web3
 import os

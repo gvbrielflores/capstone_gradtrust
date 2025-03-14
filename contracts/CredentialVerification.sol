@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import './IssuerRegistry.sol';
+import "./IssuerRegistry.sol";
 
 contract CredentialVerification {
-
     // Use to access members/call functions from IssuerRegistry
-    IssuerRegistry public issuerRegistry; 
+    IssuerRegistry public issuerRegistry;
 
     // Credential data structure holds info on holder's cert
-    struct Credential { 
+    struct Credential {
         bytes32 credentialHash;
         address issuer;
         address holder;
@@ -19,9 +18,9 @@ contract CredentialVerification {
 
     // Storage mapping for credentials
 
-    //mapping signed hash of diploma to struct 
+    //mapping signed hash of diploma to struct
     mapping(bytes32 => Credential) public credentials;
-    
+
     //address of credential holder to the signed hash of each credential
     //can we make it Credential[] instead of bytes32[]?
     mapping(address => bytes32[]) public holderCredentials;
@@ -37,7 +36,6 @@ contract CredentialVerification {
 
     event CredentialDeleted(bytes32 indexed credentialHash);
 
-    
     // WORRY ABOUT THIS LATER
     // // function to delete a credential
     // function deleteCredential(bytes32 _credentialHash) external {
@@ -53,9 +51,13 @@ contract CredentialVerification {
     // Modifier to check if an issuer is valid (only verifies Merkle proof)
     modifier onlyVerifiedIssuer(
         bytes32[] memory proof,
-        bytes32 signedPairHash //H(address,name) signed by issuer
+        bool[] memory isLeft,
+        bytes32 signedPairHash
     ) {
-        require(issuerRegistry.verifyIssuer(proof, signedPairHash), "Invalid issuer: Merkle proof failed");
+        require(
+            issuerRegistry.verifyIssuer(proof, isLeft, signedPairHash),
+            "Invalid issuer: Merkle proof failed"
+        );
         _;
     }
 
@@ -71,9 +73,13 @@ contract CredentialVerification {
         uint256 _issuedAt,
         string calldata _data,
         bytes32[] calldata _merkleProof,
+        bool[] calldata _isLeft,
         bytes32 signedPairHash
-    ) external onlyVerifiedIssuer(_merkleProof, signedPairHash) {
-        require(credentials[_credentialHash].issuer == address(0), "Credential already exists");
+    ) external onlyVerifiedIssuer(_merkleProof, _isLeft, signedPairHash) {
+        require(
+            credentials[_credentialHash].issuer == address(0),
+            "Credential already exists"
+        );
 
         credentials[_credentialHash] = Credential(
             _credentialHash,
@@ -91,9 +97,10 @@ contract CredentialVerification {
         );
     }
 
-
     // Function to check if a credential exists
-    function verifyCredential(bytes32 _credentialHash) public view returns (bool) {
+    function verifyCredential(
+        bytes32 _credentialHash
+    ) public view returns (bool) {
         return credentials[_credentialHash].issuer != address(0);
     }
 }

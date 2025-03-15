@@ -88,6 +88,9 @@ contract CredentialVerification {
             _issuedAt,
             _data
         );
+
+        holderCredentials[_holder].push(_credentialHash);
+
         emit CredentialStored(
             _credentialHash,
             msg.sender,

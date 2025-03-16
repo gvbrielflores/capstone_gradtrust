@@ -1,4 +1,4 @@
-from merkly.mtree import MerkleTree
+from pymerkle import InmemoryTree as MerkleTree
 import psycopg2
 
 class IssuerVerification:
@@ -36,7 +36,10 @@ class IssuerVerification:
             leaves.append(signature)
             self.issuer_map[(address, name)] = signature
 
-        return MerkleTree(leaves)
+        tree = MerkleTree(algorithm='keccak_256', disable_security=True)
+        for leaf in leaves:
+            tree.append_entry(leaf)
+        return tree
 
     def get_merkle_root(self):
         """

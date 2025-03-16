@@ -18,6 +18,19 @@ value2_byte = tree.get_leaf(index2)
 value3_byte = tree.get_leaf(index3)
 
 #in the case of odd number of leaves, last leaf is hashed with parent node on the left
+'''
+example of this with 5 leaves:
+                  ROOT=Hash(H+E)
+                  /        \
+                 /          \
+          H=Hash(F+G)        E
+          /       \           \
+         /         \           \
+  F=Hash(A+B)    G=Hash(C+D)    E
+   /     \        /     \        \
+  /       \      /       \        \
+ A         B    C         D        E
+'''
 hash_pair1 = hasher.hash_pair(value_byte, value2_byte)
 hash_pair2 = hasher.hash_pair(hash_pair1, value3_byte)
 

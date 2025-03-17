@@ -143,7 +143,7 @@ def create_app():
                         Web3.to_bytes(hexstr=credential_hash),
                         Web3.to_checksum_address(holder_address),
                         w3.eth.get_block('latest').timestamp,
-                        metadata,
+                        issuer_name+" "+metadata,
                         proof,
                         proof_data['isLeft'],
                         leaf_hash

@@ -34,7 +34,7 @@ contract CredentialVerification {
         string data
     );
 
-    event CredentialDeleted(bytes32 indexed credentialHash);
+    // event CredentialDeleted(bytes32 indexed credentialHash);
 
     // WORRY ABOUT THIS LATER
     // // function to delete a credential

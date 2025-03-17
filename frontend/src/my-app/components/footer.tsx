@@ -17,13 +17,18 @@ export default function Footer() {
             <h3 className="text-sm font-medium">Solutions</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/ai-analytics" className="text-muted-foreground transition-colors hover:text-primary">
-                  AI Analytics
+                <Link href="/issuer" className="text-muted-foreground transition-colors hover:text-primary">
+                  Issuer
                 </Link>
               </li>
               <li>
-                <Link href="/cloud-services" className="text-muted-foreground transition-colors hover:text-primary">
-                  Cloud Services
+                <Link href="/holder" className="text-muted-foreground transition-colors hover:text-primary">
+                  Holder
+                </Link>
+              </li>
+              <li>
+                <Link href="/verifier" className="text-muted-foreground transition-colors hover:text-primary">
+                  Verifier
                 </Link>
               </li>
             </ul>

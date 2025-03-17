@@ -27,7 +27,7 @@ def create_app():
     # dotenv.load_dotenv()
 
     # Either use os.getenv with a key
-    # CONNECTION_STRING = os.getenv('DATABASE_URL', 'postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres')
+    CONNECTION_STRING = os.getenv('DATABASE_URL', 'postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres')
 
     # Or just use the string directly since you're not using environment variables
     CONNECTION_STRING = 'postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres'
@@ -213,9 +213,48 @@ def create_app():
                 
             except Exception as e:
                 return jsonify({'error': str(e)}), 500
+            
+
+        
+
+        @app.route('/api/pull-credentials', methods=['GET'])
+        def pull_credentials():
+            """Pull all credentials for a specific holder address"""
+            try:
+                holder_address = request.args.get('address')
+                if not holder_address:
+                    return jsonify({'error': 'Missing holder address'}), 400
+
+                # Convert address to checksum format
+                holder_address = Web3.to_checksum_address(holder_address)
+                
+                # Call the pullCredential function from the smart contract
+                credentials = credential_verification.functions.pullCredential(
+                    holder_address
+                ).call()
+                
+                # Format the credentials for JSON response
+                formatted_credentials = []
+                for cred in credentials:
+                    formatted_credentials.append({
+                        'credentialHash': '0x' + cred[0].hex(),
+                        'issuer': cred[1],
+                        'holder': cred[2],
+                        'issuedAt': cred[3],
+                        'data': cred[4]
+                    })
+                
+                return jsonify({
+                    'success': True,
+                    'credentials': formatted_credentials
+                })
+                
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
 
         root = issuer_registry.functions.merkleRoot().call()
         print(f"Updated root: {root.hex()}")
+        
 
     return app
 

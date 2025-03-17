@@ -127,6 +127,7 @@ def create_app():
                 holder_address = request.form.get('holderAddress')
                 issuer_address = request.form.get('issuerAddress')
                 issuer_name = request.form.get('issuerName')
+                metadata = request.form.get('metaData')
 
                 # Get issuer's Merkle proof
                 verifier = IssuerVerification()
@@ -142,7 +143,7 @@ def create_app():
                         Web3.to_bytes(hexstr=credential_hash),
                         Web3.to_checksum_address(holder_address),
                         w3.eth.get_block('latest').timestamp,
-                        "Credential",
+                        metadata,
                         proof,
                         proof_data['isLeft'],
                         leaf_hash

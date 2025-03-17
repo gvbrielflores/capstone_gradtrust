@@ -86,6 +86,11 @@
             <input type="text" id="issuerName" placeholder="University Name" required>
         </div>
 
+        <div class="form-group">
+            <label for="metaData">Metadata:</label>
+            <input type="text" id="metaData" placeholder="Student name & major(s)" required>
+        </div>
+
         <button type="submit">Issue Credential</button>
     </form>
 
@@ -110,6 +115,7 @@
                 formData.append('holderAddress', document.getElementById('holderAddress').value);
                 formData.append('issuerAddress', document.getElementById('issuerAddress').value);
                 formData.append('issuerName', document.getElementById('issuerName').value);
+                formData.append('metaData', document.getElementById('metaData').value);
 
                 // Send to backend
                 const response = await fetch('http://localhost:5000/api/issue-credential', {

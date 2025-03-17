@@ -18,7 +18,6 @@ export default function Home() {
         <Navbar />
         <Hero />
         <Features />
-        <CTA />
         <Footer />
       </div>
     </div>

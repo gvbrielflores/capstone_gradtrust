@@ -4,7 +4,7 @@ from pymerkle.hasher import MerkleHasher
 algo = 'keccak_256'
 
 #disabling security for testing purposes as it prepends to hash and makes it harder to manually compute hashes
-tree = MerkleTree(algorithm=algo, disable_security=True)\
+tree = MerkleTree(algorithm=algo, disable_security=True)
 #can use the hasher functionality in pymerkle to manually check hash pairs
 hasher = MerkleHasher(tree.algorithm, tree.security)
 

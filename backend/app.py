@@ -27,7 +27,7 @@ def create_app():
     # dotenv.load_dotenv()
 
     # Either use os.getenv with a key
-    CONNECTION_STRING = os.getenv('DATABASE_URL', 'postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres')
+    # CONNECTION_STRING = os.getenv('DATABASE_URL', 'postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres')
 
     # Or just use the string directly since you're not using environment variables
     CONNECTION_STRING = 'postgresql://postgres:L8RTsfQAJ3wuh7y4@exactly-assured-sawfly.data-1.use1.tembo.io:5432/postgres'
@@ -253,7 +253,7 @@ def create_app():
                 return jsonify({'error': str(e)}), 500
 
         root = issuer_registry.functions.merkleRoot().call()
-        print(f"Updated root: {root.hex()}")
+        print(f"Current root on-chain: {root.hex()}")
         
 
     return app

@@ -100,6 +100,19 @@ contract CredentialVerification {
         );
     }
 
+    // Function to pull a holder's list of credentials
+    function pullCredential (
+        address holderAddress
+    ) external view returns(Credential[] memory) {
+        bytes32[] memory holderHashes = holderCredentials[holderAddress];
+        Credential[] memory userCredentials = new Credential[](holderHashes.length);
+        for (uint i = 0; i < userCredentials.length; i++) {
+            userCredentials[i] = credentials[holderHashes[i]];
+        }
+
+        return userCredentials;
+    }
+
     // Function to check if a credential exists
     function verifyCredential(
         bytes32 _credentialHash

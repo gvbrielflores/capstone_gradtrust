@@ -61,7 +61,7 @@ contract CredentialVerification {
         _;
     }
 
-    //what this do?
+    // Instantiate issuerRegsistry object to interact with IssuerRegistry contract
     constructor(address _issuerRegistry) {
         issuerRegistry = IssuerRegistry(_issuerRegistry);
     }

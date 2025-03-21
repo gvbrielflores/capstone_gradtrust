@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
-
+import { motion } from "framer-motion"
 export default function AboutPage() {
   const [address, setAddress] = useState("")
 
@@ -25,12 +25,20 @@ export default function AboutPage() {
         <Navbar />
         <main className="flex flex-col items-center p-8 md:p-24 text-white">
           {/* Hero Section */}
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8 }}
+            className="w-full max-w-xl bg-slate-800/40 p-8 rounded-xl shadow-lg"
+          >
+
           <section className="w-full max-w-lg bg-white/10 p-6 rounded-2xl shadow-md backdrop-blur-md text-center">
           <section className="w-full max-w-7xl mb-16 text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">Verifier</h1>
           </section>
 
           {/* Address Input Section */}
+          
             <label htmlFor="address" className="block text-lg font-semibold mb-2">
               Enter Recipient Address
             </label>
@@ -49,6 +57,7 @@ export default function AboutPage() {
               Submit
             </button>
           </section>
+          </motion.section>
         </main>
         <Footer />
       </div>

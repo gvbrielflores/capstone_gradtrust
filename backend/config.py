@@ -2,6 +2,8 @@ import os
 from web3 import Web3
 import json
 import dotenv
+from abis.issuer_registry import ABI as ISSUER_REGISTRY_ABI
+from abis.credential_verification import ABI as CREDENTIAL_VERIFICATION_ABI
 
 dotenv.load_dotenv()
 
@@ -34,7 +36,6 @@ w3 = Web3(Web3.HTTPProvider(network_config['url']))
 # Contract addresses
 ISSUER_REGISTRY_ADDRESS = Web3.to_checksum_address(network_config['issuer_registry'])
 CREDENTIAL_VERIFICATION_ADDRESS = Web3.to_checksum_address(network_config['credential_verification'])
-# Database connection
 
 
 # Load contract ABI
@@ -52,10 +53,10 @@ def load_contract_abi(contract_name):
 # Initialize contracts
 issuer_registry = w3.eth.contract(
     address=ISSUER_REGISTRY_ADDRESS,
-    abi=load_contract_abi('IssuerRegistry')
+    abi=ISSUER_REGISTRY_ABI
 )
 
 credential_verification = w3.eth.contract(
     address=CREDENTIAL_VERIFICATION_ADDRESS,
-    abi=load_contract_abi('CredentialVerification')
+    abi=CREDENTIAL_VERIFICATION_ABI
 ) 
